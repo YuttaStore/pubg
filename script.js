@@ -11,30 +11,35 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault(); // Prevent the default button action
 
         const userId = document.getElementById('user-id').value;
-        const zoneId = document.getElementById('zone-id').value;
+        
         const totalPrice = totalPriceSpan.textContent;
         const paymentMethod = document.querySelector('input[name="payment-method"]:checked');
         const paymentOption = paymentMethod ? paymentMethod.value : 'Not selected';
         const timestamp = new Date().toLocaleString();
-        const productId = selectedPackage ? selectedPackage.dataset.price : 'Not selected'; // Get the selected package ID
+        const productId = selectedPackage ? selectedPackage.querySelector('.details h3').textContent + " UC" : 'Not selected'; // Get the selected package ID
 
         // Construct the invoice message
         const invoiceMessage = `
-            *YUTTA STORE - Invoice*
+                   
+                   
+                   
+*INVOICE BILL from* yuttastore.com
+                 
+Time: ${timestamp} 
+------------------------------------------------------
+*User ID*: (${userId})
+*Product : ${productId}*
+*Mode of Payment* : ${paymentOption}
+------------------------------------------------------
+*Total: ${totalPrice}*
             
-            User ID: ${userId}
-            Zone ID: ${zoneId}
-            Product ID: ${productId}
-            Total: ${totalPrice}
-            Payment Method: ${paymentOption}
+*Payment Method* 
+           
+1. UPI ID:(q731109764@ybl)
             
-            UPI ID: q731109764@ybl
+2. QR Code:(${qrCodeUrl})
             
-            [QR Code](${qrCodeUrl})
-            
-            Timestamp: ${timestamp}
-            
-            Please make the payment to complete your order. Thank you!
+Please make the payment to complete your order. Thank you!
         `;
 
         // Encode the message for WhatsApp
